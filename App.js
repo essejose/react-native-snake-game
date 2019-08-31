@@ -6,6 +6,7 @@ import {
 import { GameEngine } from "react-native-game-engine"
 import Constants from './Constants'
 
+import  Head from './components/Head'
 
 export default class App extends Component {  
   constructor(props){
@@ -24,6 +25,12 @@ export default class App extends Component {
               height:this.boardSize,
               flex:null,
               backgroundColor:'#fff' 
+            }}
+            entities={{
+              head :{
+                position: [1,0],
+                size: Constants.CELL_SIZE, renderer:<Head/>
+              }
             }}
           />
 
