@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import { 
   StyleSheet, 
   View, 
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import { GameEngine } from "react-native-game-engine"
 import Constants from './Constants'
@@ -17,14 +18,29 @@ export default class App extends Component {
     super(props);
     this.boardSize = Constants.GRID_SIZE * Constants.CELL_SIZE;
     this.engine = null;
+    this.state = {
+      running: true
+    }
+  }
+
+  OnEvent = (e) =>{
+    if(e.type === "game-over"){
+        Alert.alert("Game Over");
+        this.setState({
+          running:false
+        })
+    }
   }
 
   render(){
+    const { running } = this.state 
     return(
       <View style={styles.container}>
           <GameEngine
             ref={(ref)=> { this.engine=ref}}
             systems={[GameLoop]}
+            onEvent={this.OnEvent}
+            running={running}
             style={{
               width:this.boardSize,
               height:this.boardSize,
