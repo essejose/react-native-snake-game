@@ -5,8 +5,11 @@ import {
 } from 'react-native';
 import { GameEngine } from "react-native-game-engine"
 import Constants from './Constants'
+import {GameLoop}  from './GameLoop'
 
 import  Head from './components/Head'
+
+
 
 export default class App extends Component {  
   constructor(props){
@@ -20,6 +23,7 @@ export default class App extends Component {
       <View style={styles.container}>
           <GameEngine
             ref={(ref)=> { this.engine=ref}}
+            systems={[GameLoop]}
             style={{
               width:this.boardSize,
               height:this.boardSize,
@@ -29,9 +33,15 @@ export default class App extends Component {
             entities={{
               head :{
                 position: [1,0],
-                size: Constants.CELL_SIZE, renderer:<Head/>
+                size: Constants.CELL_SIZE,
+                xspeed:1,
+                yspeed:0,
+                updateFrequency:10,
+                nextMove:10,
+                renderer:<Head/>
               }
             }}
+          
           />
 
           
