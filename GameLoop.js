@@ -1,8 +1,10 @@
 import Constants from './Constants';
+import RandomBetween from './utils/RandomBetween';
 
 const GameLoop = (entities, { touches, dispatch, events }) =>{
     
-    let head = entities.head;
+    let {head, food} = entities
+ 
 
     if(events.length){
         for (let i = 0; i < events.length; i++) {
@@ -44,6 +46,15 @@ const GameLoop = (entities, { touches, dispatch, events }) =>{
 
             head.position[0] += head.xspeed;
             head.position[1] += head.yspeed;
+
+
+            if(head.position[0] === food.position[0] && head.position[1] === food.position[1] ){
+                //colision
+                //autmentar tamanho
+
+                food.position[0] = RandomBetween(0, Constants.GRID_SIZE - 1)
+                food.position[1] = RandomBetween(0, Constants.GRID_SIZE - 1)
+            }
     
         }
 

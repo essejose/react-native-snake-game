@@ -5,12 +5,13 @@ import {
   TouchableOpacity,
   Alert
 } from 'react-native';
-import { GameEngine } from "react-native-game-engine"
-import Constants from './Constants'
-import {GameLoop}  from './GameLoop'
+import { GameEngine } from "react-native-game-engine";
+import Constants from './Constants';
+import RandomBetween from './utils/RandomBetween';
+import {GameLoop}  from './GameLoop';
 
-import  Head from './components/Head'
-
+import  Head from './components/Head';
+import  Food from './components/Food';
 
 
 export default class App extends Component {  
@@ -22,6 +23,8 @@ export default class App extends Component {
       running: true
     }
   }
+
+ 
 
   OnEvent = (e) =>{
     if(e.type === "game-over"){
@@ -56,6 +59,11 @@ export default class App extends Component {
                 updateFrequency:10,
                 nextMove:10,
                 renderer:<Head/>
+              },
+              food :{
+                position: [RandomBetween(0, Constants.GRID_SIZE - 1), RandomBetween(0, Constants.GRID_SIZE - 1)],
+                size: Constants.CELL_SIZE,
+                renderer:<Food/>
               }
             }}
           
