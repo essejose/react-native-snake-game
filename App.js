@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import { 
   StyleSheet, 
   View, 
+  TouchableOpacity
 } from 'react-native';
 import { GameEngine } from "react-native-game-engine"
 import Constants from './Constants'
@@ -32,7 +33,7 @@ export default class App extends Component {
             }}
             entities={{
               head :{
-                position: [1,0],
+                position: [0,0],
                 size: Constants.CELL_SIZE,
                 xspeed:1,
                 yspeed:0,
@@ -44,7 +45,33 @@ export default class App extends Component {
           
           />
 
-          
+          <View style={styles.controls}>
+         
+            <View style={styles.controlRow}>
+              <TouchableOpacity onPress={()=>{ this.engine.dispatch({type:"move-up"})}}>
+                <View style={styles.control}/>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.controlRow}>
+            <TouchableOpacity onPress={()=>{ this.engine.dispatch({type:"move-left"})}}>
+                <View style={styles.control}/>
+              </TouchableOpacity>
+              <View style={[styles.control,{backgroundColor:null}]}/>
+              <TouchableOpacity onPress={()=>{ this.engine.dispatch({type:"move-right"})}}>
+                <View style={styles.control}/>
+              </TouchableOpacity>
+            </View>
+            
+            <View style={styles.controlRow}>
+            <TouchableOpacity onPress={()=>{ this.engine.dispatch({type:"move-down"})}}>
+                <View style={styles.control}/>
+              </TouchableOpacity>
+            </View>
+
+          </View>
+
+
       </View>
     )
   }
@@ -57,5 +84,22 @@ const styles = StyleSheet.create({
     backgroundColor:'#000',
     justifyContent:"center",
     alignItems:'center'
-  } 
+  },
+  controls:{
+    width:300,
+    height:300,
+    flexDirection:'column'
+  },
+  controlRow:{
+    width:300,
+    height:100,
+    flexDirection:'row',
+    alignItems:'center',
+    justifyContent:'center'
+  },
+  control:{
+    width:100,
+    height:100,
+    backgroundColor:'blue'
+  }
 }); 
