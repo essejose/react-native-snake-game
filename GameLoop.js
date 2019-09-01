@@ -38,10 +38,10 @@ const GameLoop = (entities, { touches, dispatch, events }) =>{
             head.position[1]  + head.yspeed < 0 ||
             head.position[1]  + head.yspeed >= Constants.GRID_SIZE
         ){
-            // Game over :(
-                // dispatch({
-                //     type:"game-over"
-                // })
+            //Game over :(
+                dispatch({
+                    type:"game-over"
+                })
         } else{ 
 
             //follow

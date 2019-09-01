@@ -3,19 +3,19 @@ import {
   StyleSheet, 
   View, 
   TouchableOpacity,
-  Alert
+  Alert,
+  Button
 } from 'react-native';
 import { GameEngine } from "react-native-game-engine";
 import Constants from './Constants';
 import RandomBetween from './utils/RandomBetween';
-import {GameLoop}  from './GameLoop';
-
+import {GameLoop}  from './GameLoop'; 
 import  Head from './components/Head';
-import  Tail from './components/Tail';
-
+import  Tail from './components/Tail'; 
 import  Food from './components/Food';
 
 
+ 
 export default class App extends Component {  
   constructor(props){
     super(props);
@@ -24,6 +24,7 @@ export default class App extends Component {
     this.state = {
       running: true
     }
+   
   }
 
  
@@ -35,6 +36,35 @@ export default class App extends Component {
           running:false
         })
     }
+  }
+
+  reset = () =>{
+   
+    this.engine.swap({
+        head :{
+          position: [0,0],
+          size: Constants.CELL_SIZE,
+          xspeed:1,
+          yspeed:0,
+          updateFrequency:10,
+          nextMove:10,
+          renderer:<Head/>
+        },
+        food :{
+          position: [RandomBetween(0, Constants.GRID_SIZE - 1), RandomBetween(0, Constants.GRID_SIZE - 1)],
+          size: Constants.CELL_SIZE, 
+          renderer:<Food/>
+        },
+        tail:{
+          size: Constants.CELL_SIZE,
+          elements:[],
+          renderer:<Tail/>
+        }
+      
+    });
+    this.setState({
+      running:true
+    })
   }
 
   render(){
@@ -64,7 +94,7 @@ export default class App extends Component {
               },
               food :{
                 position: [RandomBetween(0, Constants.GRID_SIZE - 1), RandomBetween(0, Constants.GRID_SIZE - 1)],
-                size: Constants.CELL_SIZE,
+                size: Constants.CELL_SIZE, 
                 renderer:<Food/>
               },
               tail:{
@@ -75,8 +105,10 @@ export default class App extends Component {
             }}
           
           />
-
-          <View style={styles.controls}>
+        
+          <Button title="New game" onPress={this.reset}/>
+            
+            <View style={styles.controls}>
          
             <View style={styles.controlRow}>
               <TouchableOpacity onPress={()=>{ this.engine.dispatch({type:"move-up"})}}>
