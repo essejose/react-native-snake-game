@@ -3,7 +3,7 @@ import RandomBetween from './utils/RandomBetween';
 
 const GameLoop = (entities, { touches, dispatch, events }) =>{
     
-    let {head, food} = entities
+    let {head, food, tail } = entities
  
 
     if(events.length){
@@ -39,20 +39,34 @@ const GameLoop = (entities, { touches, dispatch, events }) =>{
             head.position[1]  + head.yspeed >= Constants.GRID_SIZE
         ){
             // Game over :(
-                dispatch({
-                    type:"game-over"
-                })
-        } else{
+                // dispatch({
+                //     type:"game-over"
+                // })
+        } else{ 
+
+            //follow
+            tail.elements = [[head.position[0], head.position[1]]].concat(tail.elements).slice(0,-1);
 
             head.position[0] += head.xspeed;
             head.position[1] += head.yspeed;
 
 
+            for (let ih = 0; ih < tail.elements.length; ih++) {
+                const tailElement = tail.elements[ih];
+                
+                if(head.position[0] === tailElement[0] && head.position[1] === tailElement[1] ){
+                         dispatch({
+                            type:"game-over"
+                        })
+                }
+            }
+ 
+
             if(head.position[0] === food.position[0] && head.position[1] === food.position[1] ){
                 //colision
-                //autmentar tamanho
-
                 
+                //push tail
+                tail.elements = [[food.position[0], food.position[1]]].concat(tail.elements); 
 
                 food.position[0] = RandomBetween(0, Constants.GRID_SIZE - 1)
                 food.position[1] = RandomBetween(0, Constants.GRID_SIZE - 1)

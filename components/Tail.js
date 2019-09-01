@@ -14,11 +14,11 @@ export default class Tail extends Component {
       let tailList =  elements.map((el,idx) =>{
 
           return (
-          <View style={{
+          <View key={idx} style={{
             width: size,
             height: size,
-            left: el[0],
-            top: el[1],
+            left: el[0] * size,
+            top: el[1] * size,
             position:'absolute',
             backgroundColor:'#888' 
           }}/>
