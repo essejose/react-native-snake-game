@@ -11,6 +11,8 @@ import RandomBetween from './utils/RandomBetween';
 import {GameLoop}  from './GameLoop';
 
 import  Head from './components/Head';
+import  Tail from './components/Tail';
+
 import  Food from './components/Food';
 
 
@@ -37,7 +39,7 @@ export default class App extends Component {
 
   render(){
     const { running } = this.state 
-    return(
+    return( 
       <View style={styles.container}>
           <GameEngine
             ref={(ref)=> { this.engine=ref}}
@@ -64,6 +66,11 @@ export default class App extends Component {
                 position: [RandomBetween(0, Constants.GRID_SIZE - 1), RandomBetween(0, Constants.GRID_SIZE - 1)],
                 size: Constants.CELL_SIZE,
                 renderer:<Food/>
+              },
+              tail:{
+                size: Constants.CELL_SIZE,
+                elements:[],
+                renderer:<Tail/>
               }
             }}
           

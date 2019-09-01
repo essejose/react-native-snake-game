@@ -52,6 +52,8 @@ const GameLoop = (entities, { touches, dispatch, events }) =>{
                 //colision
                 //autmentar tamanho
 
+                
+
                 food.position[0] = RandomBetween(0, Constants.GRID_SIZE - 1)
                 food.position[1] = RandomBetween(0, Constants.GRID_SIZE - 1)
             }
